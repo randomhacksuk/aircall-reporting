@@ -31,7 +31,7 @@ class AircallController extends Controller
     			$userData['email'] = $data['data']['email'];
     			$userData['available'] = $data['data']['available'];
     			$userData['availability_status'] = $data['data']['availability_status'];
-    			$this->usersRepo->add($data);
+    			$this->usersRepo->add($userData);
     			return;
     		}
     	}
