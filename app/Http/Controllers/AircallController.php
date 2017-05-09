@@ -34,12 +34,12 @@ class AircallController extends Controller
     			if($this->usersRepo->add($userData)) {
     				return;
     			}
-    		}
-    	} 	elseif($data['event'] == 'user.deleted') {
+    		} elseif($data['event'] == 'user.deleted') {
     			if($this->usersRepo->delete($data['data']['id'])) {
     				return;
     			}
     		}
+    	}
     }
 }
 
