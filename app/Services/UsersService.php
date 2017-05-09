@@ -59,6 +59,6 @@ class UsersService implements UsersInterface
      */
     public function delete($id)
     {
-        return $this->user->find($id)->delete();
+        return $this->user->where('aircall_id', $id)->delete();
     }
 }

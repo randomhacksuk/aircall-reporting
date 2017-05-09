@@ -35,6 +35,7 @@ class AircallController extends Controller
     				return;
     			}
     		} elseif($data['event'] == 'user.deleted') {
+    			Log::info($data);
     			if($this->usersRepo->delete($data['data']['id'])) {
     				return;
     			}
