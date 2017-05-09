@@ -15,10 +15,11 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('aircall_id')->unique();
             $table->string('name');
             $table->string('email')->unique();
-            $available->boolean();
-            $table->string('available_status')->nullable();
+            $table->boolean('available');
+            $table->string('availability_status')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

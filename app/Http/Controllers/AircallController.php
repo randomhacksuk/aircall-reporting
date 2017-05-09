@@ -3,22 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Contracts\UsersInterface;
 
 use Aircall\AircallClient;
 use Log;
 
 class AircallController extends Controller
 {
+	/**
+    * Create a new instance of UsersController class.
+    *
+    * @return void
+    */
+	public function __construct(UsersInterface $usersRepo)
+	{
+		$this->usersRepo = $usersRepo;
+	}
+
     public function postAircallUsers(Request $request)
     {
     	$data = $request->all();
-    	Log::info($data['id']);
-    	// // $client = new AircallClient('22e6df7296b0dff9e4080909ae82d604', '7a333e7255576eb86f7479b99643f9db');
-    	// // dd($client->users->getUsers());
-    	// if($data['resource'] == 'user' && $data['event'] == 'user.created') {
-
-    	// }
+    	$userData = [];
+    	if($data['resource'] == 'user') {
+    		if($data['event'] == 'user.created') {
+    			$userData['aircall_id'] = $data['data']['id'];
+    			$userData['name'] = $data['data']['name'];
+    			$userData['email'] = $data['data']['email'];
+    			$userData['available'] = $data['data']['available'];
+    			$userData['availability_status'] = $data['data']['availability_status'];
+    			$this->usersRepo->add($data);
+    			return;
+    		}
+    	}
     }
 }
-
  
