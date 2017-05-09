@@ -51,4 +51,14 @@ class UsersService implements UsersInterface
     {
         return $this->user->find($id)->update($param);
     }
+
+    /**
+     * Delete user
+     *
+     * @return bool
+     */
+    public function delete($id)
+    {
+        return $this->user->find($id)->delete();
+    }
 }

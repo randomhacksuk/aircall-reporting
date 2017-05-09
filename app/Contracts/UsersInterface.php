@@ -29,4 +29,11 @@ interface UsersInterface
      * @return bool
     */
     public function update($id, $param);
+
+    /**
+     * Delete user
+     *
+     * @return bool
+     */
+    public function delete($id);
 }

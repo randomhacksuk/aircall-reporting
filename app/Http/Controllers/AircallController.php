@@ -31,10 +31,16 @@ class AircallController extends Controller
     			$userData['email'] = $data['data']['email'];
     			$userData['available'] = $data['data']['available'];
     			$userData['availability_status'] = $data['data']['availability_status'];
-    			$this->usersRepo->add($userData);
-    			return;
+    			if($this->usersRepo->add($userData)) {
+    				return;
+    			}
     		}
-    	}
+    	} 	elseif($data['event'] == 'user.deleted') {
+    			if($this->usersRepo->delete($data['data']['id'])) {
+    				return;
+    			}
+    		}
     }
 }
+
  
