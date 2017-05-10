@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Contracts\CallsInterface;
 use Carbon\Carbon;
+use Log;
 
 class CallsController extends Controller
 {
