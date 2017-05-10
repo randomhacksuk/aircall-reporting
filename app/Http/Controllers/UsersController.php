@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Contracts\UsersInterface;
 
-use Aircall\AircallClient;
 use Log;
 
-class AircallController extends Controller
+class UsersController extends Controller
 {
-	/**
+    /**
     * Create a new instance of UsersController class.
     *
     * @return void
@@ -26,7 +25,7 @@ class AircallController extends Controller
     	$userData = [];
     	if($data['resource'] == 'user') {
     		if($data['event'] == 'user.created') {
-    			$userData['aircall_id'] = $data['data']['id'];
+    			$userData['aircall_user_id'] = $data['data']['id'];
     			$userData['name'] = $data['data']['name'];
     			$userData['email'] = $data['data']['email'];
     			$userData['available'] = $data['data']['available'];
@@ -35,7 +34,6 @@ class AircallController extends Controller
     				return;
     			}
     		} elseif($data['event'] == 'user.deleted') {
-    			Log::info($data);
     			if($this->usersRepo->delete($data['data']['id'])) {
     				return;
     			}
@@ -43,5 +41,3 @@ class AircallController extends Controller
     	}
     }
 }
-
- 

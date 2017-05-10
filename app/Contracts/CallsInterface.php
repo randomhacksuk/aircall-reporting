@@ -2,26 +2,26 @@
 
 namespace App\Contracts;
     
-interface UsersInterface
+interface CallsInterface
 {
     /**
-     * Get all users
+     * Get all calls
      *
      * @return Collection
      */
     public function getAll();
 
     /**
-      * Add new user
+      * Add new call
       *
       * @param array $param
       *
-      * @return user
+      * @return call
     */
     public function add($param);
 
     /**
-     * Update user 
+     * Update call 
      * 
      * @param integer $id
      * @param array $param 
@@ -31,7 +31,7 @@ interface UsersInterface
     public function update($id, $param);
 
     /**
-     * Delete user
+     * Delete call
      *
      * @return bool
      */

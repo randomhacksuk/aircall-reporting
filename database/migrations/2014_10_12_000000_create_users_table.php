@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('aircall_id')->unique();
+            $table->integer('aircall_user_id')->unique();
             $table->string('name');
             $table->string('email')->unique();
             $table->boolean('available');

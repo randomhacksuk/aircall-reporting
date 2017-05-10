@@ -27,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
             'App\Contracts\UsersInterface',
             'App\Services\UsersService'
         );
+        $this->app->bind(
+            'App\Contracts\CallsInterface',
+            'App\Services\CallsService'
+        );
     }
 }

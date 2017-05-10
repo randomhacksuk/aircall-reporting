@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'aircall_id', 'name', 'email', 'available', 'availability_status'
+        'aircall_user_id', 'name', 'email', 'available', 'availability_status'
     ];
 
     /**

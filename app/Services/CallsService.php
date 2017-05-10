@@ -1,46 +1,46 @@
 <?php
 
 namespace App\Services;
-use App\Contracts\UsersInterface;
-use App\User;
+use App\Contracts\CallsInterface;
+use App\Call;
 use Auth;
 
-class UsersService implements UsersInterface
+class CallsService implements CallsInterface
 {
     /**
-     * Create a new instance of UsersService
+     * Create a new instance of CallsService.
      *
      * @return void
      */
     function __construct()
     {
-        $this->user = new User();
+        $this->call = new Call();
     }
 
     /**
-     * Get all users
+     * Get all calls
      *
      * @return Collection
      */
     public function getAll()
     {
-        return $this->user->get();
+        return $this->call->get();
     }
 
     /**
-      * Add new user
+      * Add new call
       *
       * @param array $param
       *
-      * @return user
+      * @return call
     */
     public function add($param)
     {
-        return $this->user->create($param);
+        return $this->call->create($param);
     }
 
     /**
-     * Update user 
+     * Update call 
      * 
      * @param integer $id
      * @param array $param 
@@ -49,16 +49,16 @@ class UsersService implements UsersInterface
     */
     public function update($id, $param)
     {
-        return $this->user->find($id)->update($param);
+        return $this->call->find($id)->update($param);
     }
 
     /**
-     * Delete user
+     * Delete call
      *
      * @return bool
      */
     public function delete($id)
     {
-        return $this->user->where('aircall_id', $id)->delete();
+        return $this->call->where('aircall_id', $id)->delete();
     }
 }

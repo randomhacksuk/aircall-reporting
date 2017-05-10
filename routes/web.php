@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('aircall-users', 'AircallController@postAircallUsers');
+Route::post('aircall-users', 'UsersController@postAircallUsers');
+Route::post('aircall-calls', 'CallsController@postAircallCalls');
