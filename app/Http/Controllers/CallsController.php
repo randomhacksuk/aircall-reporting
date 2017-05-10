@@ -26,13 +26,9 @@ class CallsController extends Controller
     	Log::info($data);
     	if($data['resource'] == 'call') {
     		if($data['event'] == 'call.created') {
-
-    			if(count($data['user']) > 0) {
-    				$callData['user_id'] = $data['user']['id'];
-    			}
-
+    			$callData['user_id'] = $data['data']['user']['id'];
     			$callData['aircall_call_id'] = $data['data']['id'];
-    			$callData['user_id'] = $data['number']['digits'];
+    			$callData['user_id'] = $data['data']['number']['digits'];
     			$callData['direction'] = $data['data']['direction'];
     			$callData['email'] = $data['data']['email'];
     			$callData['available'] = $data['data']['available'];
