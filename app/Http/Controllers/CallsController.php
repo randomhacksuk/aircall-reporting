@@ -28,7 +28,7 @@ class CallsController extends Controller
     		if($data['event'] == 'call.created') {
     			$callData['user_id'] = $data['data']['user']['id'];
     			$callData['aircall_call_id'] = $data['data']['id'];
-    			$callData['user_id'] = $data['data']['number']['digits'];
+    			$callData['number'] = $data['data']['number']['digits'];
     			$callData['direction'] = $data['data']['direction'];
     			$callData['status'] = $data['data']['status'];
     			$callData['started_at'] = $data['data']['started_at'];
