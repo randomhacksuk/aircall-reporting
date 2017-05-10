@@ -30,8 +30,6 @@ class CallsController extends Controller
     			$callData['aircall_call_id'] = $data['data']['id'];
     			$callData['user_id'] = $data['data']['number']['digits'];
     			$callData['direction'] = $data['data']['direction'];
-    			$callData['email'] = $data['data']['email'];
-    			$callData['available'] = $data['data']['available'];
     			$callData['status'] = $data['data']['status'];
     			$callData['started_at'] = $data['data']['started_at'];
     			$callData['answered_at'] = $data['data']['answered_at'];
