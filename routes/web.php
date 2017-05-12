@@ -17,3 +17,8 @@ Route::get('/', function () {
 
 Route::post('aircall-users', 'UsersController@postAircallUsers');
 Route::post('aircall-calls', 'CallsController@postAircallCalls');
+
+Route::get('aaa', function()
+{
+	return view('tables');
+});

@@ -1,0 +1,13 @@
+.center {
+    margin: auto;
+    width: 75%;
+    padding: 10px;
+}
+
+form.form-inline {
+	margin-bottom: 20px;
+}
+
+#callsTable{
+	font-size: 12px;
+}
