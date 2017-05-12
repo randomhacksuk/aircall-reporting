@@ -42,7 +42,7 @@ class CallsController extends Controller
     			if($this->callsRepo->add($callData)) {
     				return;
     			}
-    		} elseif($data['event'] == 'call. deleted') {
+    		} elseif($data['event'] == 'call.deleted') {
     			if($this->callsRepo->delete($data['data']['id'])) {
     				return;
     			}
@@ -51,17 +51,18 @@ class CallsController extends Controller
     }
 }
 
-// 'resource' => 'call',
+// [2017-05-10 13:11:32] local.INFO: array (
+//   'resource' => 'call',
 //   'event' => 'call.created',
-//   'timestamp' => 1494330092,
-//   'token' => '2e9a1afa2da5cefec4306743f4b852c8',
+//   'timestamp' => 1494421891,
+//   'token' => '78f898d1d4b9c9015064b3d72a1bdedd',
 //   'data' =>
 //   array (
-//     'id' => 21759044,
-//     'direct_link' => 'https://api.aircall.io/v1/calls/21759044',
+//     'id' => 21845642,
+//     'direct_link' => 'https://api.aircall.io/v1/calls/21845642',
 //     'direction' => 'outbound',
 //     'status' => 'initial',
-//     'started_at' => 1494330092,
+//     'started_at' => 1494421891,
 //     'answered_at' => NULL,
 //     'ended_at' => NULL,
 //     'duration' => '0',
@@ -75,7 +76,7 @@ class CallsController extends Controller
 //       'name' => 'David Martirosyan',
 //       'email' => 'david1994martirosyan@gmail.com',
 //       'available' => true,
-//       'availability_status' => 'available',
+//       'availability_status' => 'custom',
 //     ),
 //     'number' =>
 //     array (
@@ -97,3 +98,36 @@ class CallsController extends Controller
 //     ),
 //   ),
 // )
+// [2017-05-10 13:11:54] local.INFO: array (
+//   'resource' => 'call',
+//   'event' => 'call.answered',
+//   'timestamp' => 1494421914,
+//   'token' => '78f898d1d4b9c9015064b3d72a1bdedd',
+//   'data' =>
+//   array (
+//     'id' => 21845642,
+//     'direct_link' => 'https://api.aircall.io/v1/calls/21845642',
+//     'direction' => 'outbound',
+//     'status' => 'answered',
+//     'started_at' => 1494421891,
+//     'answered_at' => 1494421914,
+//     'ended_at' => NULL,
+//     'duration' => '0',
+//     'voicemail' => NULL,
+//     'recording' => NULL,
+//     'raw_digits' => '+374 98 968698',
+//     'user' =>
+//     array (
+//       'id' => 157227,
+//       'direct_link' => 'https://api.aircall.io/v1/users/157227',
+//       'name' => 'David Martirosyan',
+//       'email' => 'david1994martirosyan@gmail.com',
+//       'available' => true,
+//       'availability_status' => 'custom',
+//     ),
+//     'number' =>
+//     array (
+//       'id' => 37389,
+//       'direct_link' => 'https://api.aircall.io/v1/numbers/37389',
+//       'name' => 'Second Number',
+

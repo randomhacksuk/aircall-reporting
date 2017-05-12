@@ -26,10 +26,4 @@ class Call extends Model
 		'archived',
 		'number'
     ];
-
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'started_at'
-    ];
 }

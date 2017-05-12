@@ -15,7 +15,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'aircall_user_id', 'name', 'email', 'available', 'availability_status'
+        'aircall_user_id',
+        'name',
+        'email',
+        'available',
+        'availability_status'
     ];
 
     /**
@@ -26,4 +30,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function numbers()
+    {
+        return $this->belongsToMany('App\Number', 'user_numbers', 'user_id', 'number_id');
+    }
 }

@@ -61,4 +61,14 @@ class CallsService implements CallsInterface
     {
         return $this->call->where('aircall_id', $id)->delete();
     }
+
+    /**
+     * Get call by aircall_call_id
+     *
+     * @return call
+     */
+    public function getOne($id)
+    {
+        return $this->call->where('aircall_call_id', $id)->first();
+    }
 }

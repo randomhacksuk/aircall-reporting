@@ -2,26 +2,26 @@
 
 namespace App\Contracts;
     
-interface CallsInterface
+interface NumbersInterface
 {
     /**
-     * Get all calls
+     * Get all numbers
      *
      * @return Collection
      */
     public function getAll();
 
     /**
-      * Add new call
+      * Add new number
       *
       * @param array $param
       *
-      * @return call
+      * @return number
     */
     public function add($param);
 
     /**
-     * Update call 
+     * Update number 
      * 
      * @param integer $id
      * @param array $param 
@@ -31,16 +31,9 @@ interface CallsInterface
     public function update($id, $param);
 
     /**
-     * Delete call
+     * Delete number
      *
      * @return bool
      */
     public function delete($id);
-
-    /**
-     * Get call by aircall_call_id
-     *
-     * @return call
-     */
-    public function getOne($id);
 }

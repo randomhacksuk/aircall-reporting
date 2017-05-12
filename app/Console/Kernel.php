@@ -13,7 +13,11 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\OldAircallContacts',
+        'App\Console\Commands\OldAircallCalls',
+        'App\Console\Commands\AircallCalls',
+        'App\Console\Commands\OldAircallUsers',
+        'App\Console\Commands\OldAircallNumbers',
     ];
 
     /**
@@ -24,8 +28,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('aircall_calls')
+                 ->daily();
     }
 
     /**
