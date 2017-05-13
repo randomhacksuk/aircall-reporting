@@ -56,7 +56,7 @@ class OldAircallCalls extends Command
             'order' => 'desc'
         ];
 
-        dd(\App\Call::where('id', 1)->first());
+        //dd(\App\Call::where('id', 1)->first());
 
         $calls = $this->client->calls->getCallsWithQuery($array);
 
