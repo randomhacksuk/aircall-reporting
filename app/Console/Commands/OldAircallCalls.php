@@ -56,6 +56,8 @@ class OldAircallCalls extends Command
             'order' => 'desc'
         ];
 
+        dd(\App\Call::where('id', 1)->first());
+
         $calls = $this->client->calls->getCallsWithQuery($array);
 
         if($calls->meta->total > 0) {
@@ -70,29 +72,29 @@ class OldAircallCalls extends Command
                 
             }
 
-            if($calls->meta->count < $calls->meta->total) {
+            // if($calls->meta->count < $calls->meta->total) {
 
-                $pageCount = $calls->meta->total/$calls->meta->count + 1;
+            //     $pageCount = $calls->meta->total/$calls->meta->count + 1;
 
-                for ($i=2; $i <= (int)$pageCount; $i++) {
+            //     for ($i=2; $i <= (int)$pageCount; $i++) {
 
-                    $array = [
-                        'per_page' => 50,
-                        'page' => $i
-                    ];
+            //         $array = [
+            //             'per_page' => 50,
+            //             'page' => $i
+            //         ];
+            //         dump($i);
+            //         $calls = $this->client->calls->getCallsWithQuery($array);
 
-                    $calls = $this->client->calls->getCallsWithQuery($array);
+            //         foreach ($calls->calls as $key => $call) {
+            //             if($call->status == 'done') {
 
-                    foreach ($calls->calls as $key => $call) {
-                        if($call->status == 'done') {
+            //                 $this->addCall($call);
 
-                            $this->addCall($call);
+            //             }
+            //         }
+            //     } 
 
-                        }
-                    }
-                } 
-
-            }
+            // }
 
         }
     }

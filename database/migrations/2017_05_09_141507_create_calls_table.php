@@ -19,9 +19,9 @@ class CreateCallsTable extends Migration
             $table->integer('user_id')->nullable();
             $table->string('status')->nullable();
             $table->string('direction')->nullable();
-            $table->string('started_at')->nullable();
-            $table->string('answered_at')->nullable();
-            $table->string('ended_at')->nullable();
+            $table->dateTime('started_at')->nullable();
+            $table->dateTime('answered_at')->nullable();
+            $table->dateTime('ended_at')->nullable();
             $table->bigInteger('duration')->default(0);
             $table->string('raw_digits')->nullable();
             $table->string('voicemail')->nullable();

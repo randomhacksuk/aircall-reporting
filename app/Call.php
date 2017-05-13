@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Call extends Model
 {
@@ -26,6 +27,45 @@ class Call extends Model
 		'archived',
 		'number'
     ];
+
+    /**
+     * Set call started_at.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setStartedAtAttribute($value)
+    {
+    	if($value) {
+    		$this->attributes['started_at'] = Carbon::createFromTimestamp($value);
+    	}
+    }
+
+    /**
+     * Set call answered_at.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setAnsweredAtAttribute($value)
+    {
+    	if($value) {
+        	$this->attributes['answered_at'] = Carbon::createFromTimestamp($value);
+        }
+    }
+
+    /**
+     * Set call ended_at with.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setEndedAtAttribute($value)
+    {
+    	if($value) {
+        	$this->attributes['ended_at'] = Carbon::createFromTimestamp($value);
+    	}
+    }
 
     public function number()
     {
