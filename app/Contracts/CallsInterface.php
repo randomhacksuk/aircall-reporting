@@ -43,4 +43,11 @@ interface CallsInterface
      * @return call
      */
     public function getOne($id);
+
+    /**
+     * Get last month calls
+     *
+     * @return call
+     */
+    public function getFiltered($year, $month, $location);
 }

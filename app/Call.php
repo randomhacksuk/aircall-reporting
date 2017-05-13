@@ -55,7 +55,7 @@ class Call extends Model
     }
 
     /**
-     * Set call ended_at with.
+     * Set call ended_at.
      *
      * @param  string  $value
      * @return void
@@ -65,6 +65,45 @@ class Call extends Model
     	if($value) {
         	$this->attributes['ended_at'] = Carbon::createFromTimestamp($value);
     	}
+    }
+
+    /**
+     * Get call started_at.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getStartedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->timestamp;
+        }
+    }
+
+    /**
+     * Get call answered_at.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getAnsweredAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->timestamp;
+        }
+    }
+
+    /**
+     * Get call ended_at.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getEndedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->timestamp;
+        }
     }
 
     public function number()

@@ -3,7 +3,9 @@
 namespace App\Services;
 use App\Contracts\CallsInterface;
 use App\Call;
+use Carbon\Carbon;
 use Auth;
+use DB;
 
 class CallsService implements CallsInterface
 {
@@ -70,5 +72,26 @@ class CallsService implements CallsInterface
     public function getOne($id)
     {
         return $this->call->where('aircall_call_id', $id)->first();
+    }
+
+    /**
+     * Get last month calls
+     *
+     * @return call
+     */
+    public function getFiltered($year, $month, $location)
+    {        
+        return $this->call
+            ->whereYear('started_at', $year)
+            ->whereMonth('started_at', $month)
+            ->whereHas('number', function($query) use ($location)
+                {
+                    if ($location == 'all') {
+
+                    } else {
+                        $query->where('country', $location);
+                    }
+                }
+            )->get();
     }
 }

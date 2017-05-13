@@ -35,4 +35,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Number', 'user_numbers', 'user_id', 'number_id');
     }
+
+    public function calls()
+    {
+        return $this->hasMany('App\Call', 'user_id', 'aircall_user_id');
+    }
 }

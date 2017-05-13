@@ -18,7 +18,6 @@ Route::get('/', function () {
 Route::post('aircall-users', 'UsersController@postAircallUsers');
 Route::post('aircall-calls', 'CallsController@postAircallCalls');
 
-Route::get('aaa', function()
-{
-	return view('tables');
-});
+Route::get('reporting', 'CallsController@getReportingDetails');
+Route::get('filter-calls/{date}/{location}', 'CallsController@getFilteredCalls');
+Route::get('filter-graph/{date}/{location}', 'CallsController@getFilteredCallsGraph');

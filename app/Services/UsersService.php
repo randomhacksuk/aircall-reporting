@@ -24,7 +24,7 @@ class UsersService implements UsersInterface
      */
     public function getAll()
     {
-        return $this->user->get();
+        return $this->user->with('calls')->get();
     }
 
     /**
