@@ -66,14 +66,6 @@ class OldAircallNumbers extends Command
         ];
 
         $numbers = $this->client->numbers->getNumbersWithQuery($array);
-        
-        $numbers->numbers[0]->users[0] = [
-             "id" => 456,
-              "direct_link" => "https://api.aircall.io/v1/users/456",
-              "name" => "Madelaine Dupont",
-              "email" => "madelaine.dupont@aircall.io",
-              "available" => false
-        ];
 
         if($numbers->meta->total > 0) {
 
@@ -123,7 +115,7 @@ class OldAircallNumbers extends Command
         $createdNumber = DB::transaction(function () use ($number, $numberData) {
             $createdNumber = $this->numbersRepo->add($numberData);
 
-            if(count($number->users) > 0) {
+            if((isset($number->users) && count($number->users) > 0)) {
                 foreach ($number->users as $key => $user) {
                     if($this->userNumbersRepo->getOne($user->id, $createdNumber->aircall_number_id) == NULL) {
 
