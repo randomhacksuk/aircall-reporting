@@ -26,4 +26,9 @@ class Call extends Model
 		'archived',
 		'number'
     ];
+
+    public function number()
+    {
+    	return $this->hasOne('App\Number', 'digits', 'number');
+    }
 }

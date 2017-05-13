@@ -52,12 +52,11 @@ class OldAircallCalls extends Command
     public function handle()
     {
         $array = [
-            'per_page' => 5,
+            'per_page' => 50,
             'order' => 'desc'
         ];
 
         $calls = $this->client->calls->getCallsWithQuery($array);
-        dd($calls);
 
         if($calls->meta->total > 0) {
 
