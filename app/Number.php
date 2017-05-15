@@ -12,6 +12,7 @@ class Number extends Model
      * @var array
      */
     protected $fillable = [
+        'aircall_number_id',
 		'name',
 		'digits',
 		'country',
@@ -22,6 +23,6 @@ class Number extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\Number', 'user_numbers', 'number_id', 'user_id');
+        return $this->belongsToMany('App\Number', 'user_numbers', 'aircall_user_id', 'aircall_number_id');
     }
 }

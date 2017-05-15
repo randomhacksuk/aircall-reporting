@@ -9,6 +9,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -31,13 +32,19 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected function setPrimaryKey($key)
+    {
+      $this->primaryKey = $key;
+    }
+
     public function numbers()
     {
-        return $this->belongsToMany('App\Number', 'user_numbers', 'user_id', 'number_id');
+        $this->setPrimaryKey('aircall_user_id');
+        return $this->belongsToMany('\App\Number', 'user_numbers', 'aircall_user_id', 'aircall_number_id');
     }
 
     public function calls()
     {
-        return $this->hasMany('App\Call', 'user_id', 'aircall_user_id');
+        return $this->hasMany('\App\Call', 'user_id', 'aircall_user_id');
     }
 }

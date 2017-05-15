@@ -7,16 +7,17 @@ use App\Contracts\ContactsInterface;
 use App\Contracts\EmailsInterface;
 use App\Contracts\PhoneNumbersInterface;
 use App\lib\Aircall\AircallClient;
+use Carbon\Carbon;
 use DB;
 
-class OldAircallContacts extends Command
+class AircallContacts extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'old_aircall_contacts';
+    protected $signature = 'aircall_contacts';
 
     /**
      * The console command description.
@@ -60,9 +61,14 @@ class OldAircallContacts extends Command
      */
     public function handle()
     {
+        $from = Carbon::now()->subHours(24)->timestamp;
+        $to = Carbon::now()->timestamp;
         $array = [
+            'from' => $from,
+            'to' => $to,
             'per_page' => 50,
         ];
+
         $contacts = $this->client->contacts->getContactsWithQuery($array);
 
         if($contacts->meta->total > 0) {
@@ -107,8 +113,6 @@ class OldAircallContacts extends Command
         $contactData['last_name'] = $contact->last_name;
         $contactData['company_name'] = $contact->company_name; 
         $contactData['information'] = $contact->information;
-
-
 
         $createdContact = DB::transaction(function () use ($contact, $contactData) {
 

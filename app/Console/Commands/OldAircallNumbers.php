@@ -107,7 +107,7 @@ class OldAircallNumbers extends Command
         $numberData['aircall_number_id'] = $number->id;
         $numberData['name'] = $number->name;
         $numberData['digits'] = $number->digits;
-        $numberData['country'] = $number->country; 
+        $numberData['country'] = $number->country;
         $numberData['time_zone'] = $number->time_zone;
         $numberData['open'] = $number->open;
         $numberData['availability_status'] = $number->availability_status;
@@ -117,16 +117,8 @@ class OldAircallNumbers extends Command
 
             if((isset($number->users) && count($number->users) > 0)) {
                 foreach ($number->users as $key => $user) {
-                    if($this->userNumbersRepo->getOne($user->id, $createdNumber->aircall_number_id) == NULL) {
 
-                        $userNumberData = [
-                            'aircall_number_id' => $user->id,
-                            'aircall_user_id' => $number->id
-                        ];
-
-                        $this->userNumbersRepo->add($userNumberData);
-
-                    }
+                    $this->addUserNumber($createdNumber, $user);
 
                 }
 
@@ -136,7 +128,14 @@ class OldAircallNumbers extends Command
 
         });
 
-
-
     }
+
+    public function addUserNumber($createdNumber, $user)
+    {
+        if(!$this->userNumbersRepo->getOne($user->id, $createdNumber->aircall_number_id)) {
+            return $createdNumber->users()->attach($user->id);
+        }
+    }
+
 }
+

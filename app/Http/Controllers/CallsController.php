@@ -220,7 +220,7 @@ class CallsController extends Controller
             $graphArray[1][] = $inboundAbandoned;
             $graphArray[2][] = $outbound;
         }
-        // dd($graphArray);
         return $graphArray;
     }
 }
+ 

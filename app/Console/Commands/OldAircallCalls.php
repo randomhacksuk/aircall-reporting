@@ -66,7 +66,7 @@ class OldAircallCalls extends Command
                 if($call->status == 'done') {
 
                     $this->addCall($call);
-
+ 
                 }
                 
             }
@@ -81,6 +81,7 @@ class OldAircallCalls extends Command
                         'per_page' => 50,
                         'page' => $i
                     ];
+                    
                     $calls = $this->client->calls->getCallsWithQuery($array);
 
                     foreach ($calls->calls as $key => $call) {

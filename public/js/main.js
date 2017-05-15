@@ -81,7 +81,7 @@ app.controller("myCtrl", function($scope, $http) {
 		},
 		bar: {
 			width: {
-				ratio: 0.5 
+				ratio: 1 
 			}
 		},
 		axis: {

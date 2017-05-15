@@ -6,17 +6,17 @@ use Illuminate\Console\Command;
 use App\Contracts\UsersInterface;
 use App\Contracts\UserNumbersInterface;
 use App\lib\Aircall\AircallClient;
-use Exception;
+use Carbon\Carbon;
 use DB;
 
-class OldAircallUsers extends Command
+class AircallUsers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'old_aircall_users';
+    protected $signature = 'aircall_users';
 
     /**
      * The console command description.
@@ -63,7 +63,11 @@ class OldAircallUsers extends Command
      */
     public function handle()
     {
+    	$from = Carbon::now()->subHours(24)->timestamp;
+        $to = Carbon::now()->timestamp;
         $array = [
+            'from' => $from,
+            'to' => $to,
             'per_page' => 50,
         ];
 
@@ -100,7 +104,7 @@ class OldAircallUsers extends Command
                         try {
                             $this->addUser($user);
                         } catch(Exception $e) {
-                            dd($e);
+                            continue;
                         }
 
                     }
@@ -120,16 +124,17 @@ class OldAircallUsers extends Command
         $userData['email'] = $user->email;
         $userData['available'] = $user->available;
         $userData['availability_status'] = $user->availability_status;
-
-        $createdUser = DB::transaction(function () use ($user, $userData) {
-
+        try {
             $createdUser = $this->usersRepo->add($userData);
+        } catch(\Illuminate\Database\QueryException $e) {
+            return false;
+        }
+
+        if($createdUser) {
 
             $this->getUser($createdUser->aircall_user_id, $createdUser);
 
-            return $createdUser;
-
-        });
+        }
 
     }
 
@@ -139,7 +144,7 @@ class OldAircallUsers extends Command
 
         if($user->user->numbers && count($user->user->numbers) > 0) {
 
-            foreach ($user->user->numbers as $key => $number) { 
+            foreach ($user->user->numbers as $key => $number) {
 
                 $this->addUserNumber($createdUser, $number);
 

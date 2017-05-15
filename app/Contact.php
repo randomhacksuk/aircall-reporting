@@ -20,4 +20,14 @@ class Contact extends Model
 		'phone_numbers',
 		'emails',
     ];
+
+    public function emails()
+    {
+        return $this->hasMany('Email', 'contact', 'aircall_contact_id');
+    }
+
+    public function phone_numbers()
+    {
+        return $this->hasMany('PhoneNumber', 'contact', 'aircall_contact_id');
+    }
 }

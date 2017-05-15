@@ -61,4 +61,14 @@ class EmailsService implements EmailsInterface
     {
         return $this->email->where('aircall_id', $id)->delete();
     }
+
+    /**
+     * Get email by aircallContactId and value
+     *
+     * @return email
+     */
+    public function getOne($aircallContactId, $value)
+    {
+        return $this->email->where('contact_id', $aircallContactId)->where('value', $value)->first();
+    }
 }

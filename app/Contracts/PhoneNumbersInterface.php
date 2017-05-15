@@ -36,4 +36,11 @@ interface PhoneNumbersInterface
      * @return bool
      */
     public function delete($id);
+
+    /**
+     * Get phonenumber by aircallContactId and value
+     *
+     * @return phonenumber
+     */
+    public function getOne($aircallContactId, $value);
 }

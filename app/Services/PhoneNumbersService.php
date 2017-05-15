@@ -61,4 +61,14 @@ class PhoneNumbersService implements PhoneNumbersInterface
     {
         return $this->phonenumber->where('aircall_id', $id)->delete();
     }
+
+    /**
+     * Get phonenumber by aircallContactId and value
+     *
+     * @return phonenumber
+     */
+    public function getOne($aircallContactId, $value)
+    {
+        return $this->phonenumber->where('contact_id', $aircallContactId)->where('value', $value)->first();
+    }
 }

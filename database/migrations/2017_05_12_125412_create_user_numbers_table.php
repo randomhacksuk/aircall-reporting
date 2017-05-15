@@ -14,6 +14,7 @@ class CreateUserNumbersTable extends Migration
     public function up()
     {
         Schema::create('user_numbers', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('aircall_number_id')->nullable();
             $table->integer('aircall_user_id')->nullable();
         });

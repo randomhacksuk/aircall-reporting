@@ -14,9 +14,11 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\OldAircallContacts',
+        'App\Console\Commands\AircallContacts',
         'App\Console\Commands\OldAircallCalls',
         'App\Console\Commands\AircallCalls',
         'App\Console\Commands\OldAircallUsers',
+        'App\Console\Commands\AircallUsers',
         'App\Console\Commands\OldAircallNumbers',
     ];
 

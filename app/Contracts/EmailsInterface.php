@@ -36,4 +36,11 @@ interface EmailsInterface
      * @return bool
      */
     public function delete($id);
+
+    /**
+     * Get email by aircallContactId and value
+     *
+     * @return email
+     */
+    public function getOne($aircallContactId, $value);
 }
