@@ -191,11 +191,5 @@ class CallsController extends Controller
         }
         return $graphArray;
     }
-
-    public function postCallArchived(Request $request)
-    {
-        $data = $request->all();
-        Log::info($data);
-    }
 }
  
