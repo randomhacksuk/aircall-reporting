@@ -46,10 +46,26 @@ class OldAircallContacts extends Command
      */
     protected $appKey;
 
+
+    /**
+     * The instance of ContactsInterface.
+     *
+     * @var object
+     */
     protected $contactsRepo;
 
+    /**
+     * The instance of EmailsInterface.
+     *
+     * @var object
+     */
     protected $emailsRepo;
 
+    /**
+     * The instance of PhoneNumbersInterface.
+     *
+     * @var object
+     */
     protected $phoneNumbersRepo;
 
     /*
@@ -138,7 +154,11 @@ class OldAircallContacts extends Command
 
         $createdContact = DB::transaction(function () use ($contact, $contactData) {
 
+            try {
             $createdContact = $this->contactsRepo->add($contactData);
+            } catch(\Illuminate\Database\QueryException $e) {
+                return false;
+            }
 
             if(count($contact->emails) > 0) {
 

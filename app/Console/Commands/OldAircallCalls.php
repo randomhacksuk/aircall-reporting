@@ -148,7 +148,12 @@ class OldAircallCalls extends Command
         $callData['raw_digits'] = $call->raw_digits;
         $callData['archived'] = $call->archived;
 
-        return $this->callsRepo->add($callData);
+        try {
+            return $this->callsRepo->add($callData);
+        } catch(\Illuminate\Database\QueryException $e) {
+            return false;
+        }
+        
     }
 
 }
