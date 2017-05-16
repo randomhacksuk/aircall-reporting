@@ -73,8 +73,8 @@ class OldAircallUsers extends Command
         parent::__construct();
         $this->usersRepo = $usersRepo;
         $this->userNumbersRepo = $userNumbersRepo;
-        $appId = config('app.air_call_id');
-        $appKey = config('app.air_call_key');
+        $appId = config('aircall.air_call_id');
+        $appKey = config('aircall.air_call_key');
         $this->client = new AircallClient($appId, $appKey);
     }
 
