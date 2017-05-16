@@ -155,7 +155,7 @@ class OldAircallContacts extends Command
         $createdContact = DB::transaction(function () use ($contact, $contactData) {
 
             try {
-            $createdContact = $this->contactsRepo->add($contactData);
+                $createdContact = $this->contactsRepo->add($contactData);
             } catch(\Illuminate\Database\QueryException $e) {
                 return false;
             }
