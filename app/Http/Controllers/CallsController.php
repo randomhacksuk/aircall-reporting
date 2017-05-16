@@ -22,37 +22,6 @@ class CallsController extends Controller
         $this->usersRepo = $usersRepo;
 	}
 
-    // public function postAircallCalls(Request $request)
-    // {
-    // 	$data = $request->all();
-    // 	$callData = [];
-    // 	Log::info($data);
-    // 	if($data['resource'] == 'call') {
-    // 		if($data['event'] == 'call.created') {
-    // 			$callData['user_id'] = $data['data']['user']['id'];
-    // 			$callData['aircall_call_id'] = $data['data']['id'];
-    // 			$callData['number'] = $data['data']['number']['digits'];
-    // 			$callData['direction'] = $data['data']['direction'];
-    // 			$callData['status'] = $data['data']['status'];
-    // 			$callData['started_at'] = $data['data']['started_at'];
-    // 			$callData['answered_at'] = $data['data']['answered_at'];
-    // 			$callData['ended_at'] = $data['data']['ended_at'];
-    // 			$callData['duration'] = $data['data']['duration'];
-    // 			$callData['voicemail'] = $data['data']['voicemail'];
-    // 			$callData['recording'] = $data['data']['recording'];
-    // 			$callData['raw_digits'] = $data['data']['raw_digits'];
-    // 			$callData['archived'] = $data['data']['archived'];
-    // 			if($this->callsRepo->add($callData)) {
-    // 				return;
-    // 			}
-    // 		} elseif($data['event'] == 'call.deleted') {
-    // 			if($this->callsRepo->delete($data['data']['id'])) {
-    // 				return;
-    // 			}
-    // 		}
-    //     }
-    // }
-
     public function getReportingDetails()
     {
         $now = new Carbon;
@@ -221,6 +190,12 @@ class CallsController extends Controller
             $graphArray[2][] = $outbound;
         }
         return $graphArray;
+    }
+
+    public function postCallArchived(Request $request)
+    {
+        $data = $request->all();
+        Log::info($data);
     }
 }
  

@@ -17,11 +17,8 @@ Route::get('/', function () {
 
 Route::get('get-old-data', 'AircallController@getOldData');
 
-Route::get('/foo', function () {
-    $exitCode = Artisan::call('old_aircall_numbers');
-
-});
-
 Route::get('reporting', 'CallsController@getReportingDetails');
 Route::get('filter-calls/{date}/{location}', 'CallsController@getFilteredCalls');
 Route::get('filter-graph/{date}/{location}', 'CallsController@getFilteredCallsGraph');
+
+Route::post('call-archived', 'CallsController@postCallArchived');
