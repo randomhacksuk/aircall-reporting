@@ -15,8 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('aircall-users', 'UsersController@postAircallUsers');
-Route::post('aircall-calls', 'CallsController@postAircallCalls');
+Route::get('get-old-data', 'AircallController@getOldData');
+
+Route::get('/foo', function () {
+    $exitCode = Artisan::call('old_aircall_numbers');
+
+});
 
 Route::get('reporting', 'CallsController@getReportingDetails');
 Route::get('filter-calls/{date}/{location}', 'CallsController@getFilteredCalls');

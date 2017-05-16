@@ -26,20 +26,55 @@ class AircallContacts extends Command
      */
     protected $description = 'Command description';
 
+    /**
+     * The instance of AircallClient.
+     *
+     * @var object
+     */
     protected $client;
 
+    /**
+     * App id for aircall api.
+     *
+     * @var integer
+     */
     protected $appId;
 
+    /**
+     * App key for aircall api.
+     *
+     * @var integer
+     */
     protected $appKey;
 
+
+    /**
+     * The instance of ContactsInterface.
+     *
+     * @var object
+     */
     protected $contactsRepo;
 
+    /**
+     * The instance of EmailsInterface.
+     *
+     * @var object
+     */
     protected $emailsRepo;
 
+    /**
+     * The instance of PhoneNumbersInterface.
+     *
+     * @var object
+     */
     protected $phoneNumbersRepo;
 
     /**
      * Create a new command instance.
+     *
+     * @param ContactsInterface $contactsRepo
+     * @param EmailsInterface $emailsRepo
+     * @param PhoneNumbersInterface $phoneNumbersRepo
      *
      * @return void
      */
@@ -143,6 +178,14 @@ class AircallContacts extends Command
         });
     }
 
+    /**
+    * Add email
+    * 
+    * @param Collection $email
+    * @param Collection $createdContact
+    *
+    * @return collection
+    */
     public function addEmail($email, $createdContact)
     {
         if(!$this->emailsRepo->getOne($createdContact->aircall_contact_id, $email->value)) {
@@ -159,6 +202,14 @@ class AircallContacts extends Command
         return;
     }
 
+    /**
+    * Add phone number
+    * 
+    * @param Collection $phoneNumber
+    * @param Collection $createdContact
+    *
+    * @return collection
+    */
     public function addPhoneNumber($phoneNumber, $createdContact)
     {
         if(!$this->phoneNumbersRepo->getOne($createdContact->aircall_contact_id, $phoneNumber->value)) {

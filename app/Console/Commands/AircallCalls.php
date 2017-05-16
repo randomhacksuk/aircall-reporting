@@ -23,14 +23,38 @@ class AircallCalls extends Command
      */
     protected $description = 'Command description';
 
+    /**
+     * The instance of AircallClient.
+     *
+     * @var object
+     */
     protected $client;
 
+    /**
+     * App id for aircall api.
+     *
+     * @var integer
+     */
     protected $appId;
 
+    /**
+     * App key for aircall api.
+     *
+     * @var integer
+     */
     protected $appKey;
 
     /**
+     * The instance of CallsInterface.
+     *
+     * @var object
+     */
+    protected $callsRepo;
+
+    /**
      * Create a new command instance.
+     *
+     * @param CallsInterface $callsRepo
      *
      * @return void
      */
@@ -101,6 +125,13 @@ class AircallCalls extends Command
 
     }
 
+     /**
+    * Add call
+    * 
+    * @param Collection $call
+    *
+    * @return collection
+    */
     public function addCallIfNotExist($call)
     {
         if(!$this->callsRepo->getOne($call->id)) {

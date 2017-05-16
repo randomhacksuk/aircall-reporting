@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\OldAircallUsers',
         'App\Console\Commands\AircallUsers',
         'App\Console\Commands\OldAircallNumbers',
+        'App\Console\Commands\AircallNumbers',
     ];
 
     /**

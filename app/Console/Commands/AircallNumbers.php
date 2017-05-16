@@ -6,16 +6,17 @@ use Illuminate\Console\Command;
 use App\Contracts\NumbersInterface;
 use App\Contracts\UserNumbersInterface;
 use App\lib\Aircall\AircallClient;
+use Carbon\Carbon;
 use DB;
 
-class OldAircallNumbers extends Command
+class AircallNumbers extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'old_aircall_numbers';
+    protected $signature = 'aircall_numbers';
 
     /**
      * The console command description.
@@ -73,7 +74,11 @@ class OldAircallNumbers extends Command
      */
     public function handle()
     {
+        $from = Carbon::now()->subHours(24)->timestamp;
+        $to = Carbon::now()->timestamp;
         $array = [
+            'from' => $from,
+            'to' => $to,
             'per_page' => 50,
         ];
 

@@ -25,19 +25,47 @@ class AircallUsers extends Command
      */
     protected $description = 'Command description';
 
+    /**
+     * The instance of AircallClient.
+     *
+     * @var object
+     */
     protected $client;
 
+    /**
+     * App id for aircall api.
+     *
+     * @var integer
+     */
     protected $appId;
 
+    /**
+     * App key for aircall api.
+     *
+     * @var integer
+     */
     protected $appKey;
 
+    /**
+     * The instance of UsersInterface.
+     *
+     * @var object
+     */
     protected $usersRepo;
 
+    /**
+     * The instance of UserNumbersInterface.
+     *
+     * @var object
+     */
     protected $userNumbersRepo;
 
 
     /**
      * Create a new command instance.
+     *
+     * @param UsersInterface $usersRepo
+     * @param UserNumbersInterface $userNumbersRepo
      *
      * @return void
      */
@@ -51,11 +79,6 @@ class AircallUsers extends Command
         $this->client = new AircallClient($appId, $appKey);
     }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
     /**
      * Execute the console command.
      *
@@ -124,6 +147,7 @@ class AircallUsers extends Command
         $userData['email'] = $user->email;
         $userData['available'] = $user->available;
         $userData['availability_status'] = $user->availability_status;
+
         try {
             $createdUser = $this->usersRepo->add($userData);
         } catch(\Illuminate\Database\QueryException $e) {
@@ -138,6 +162,13 @@ class AircallUsers extends Command
 
     }
 
+    /**
+    * Get user info from aicall
+    *
+    * @param Collection $user
+    *
+    * @return addUserNumber
+    */
     public function getUser($userId, $createdUser)
     {
         $user = $this->client->users->getuser($userId);
@@ -153,6 +184,14 @@ class AircallUsers extends Command
 
     }
 
+    /**
+    * Attach number to user
+    *
+    * @param Collection $createdUser
+    * @param array $number
+    *
+    * @return boolean
+    */
     public function addUserNumber($createdUser, $number)
     {
         if(!$this->userNumbersRepo->getOne($createdUser->aircall_user_id, $number->id)) {
