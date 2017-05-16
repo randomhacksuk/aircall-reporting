@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/aa', function () {
+    dd(aa);
+});
+
 Route::get('get-old-data', 'AircallController@getOldData');
 
 Route::get('reporting', 'CallsController@getReportingDetails');
