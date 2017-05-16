@@ -5,11 +5,12 @@ app.controller("myCtrl", function($scope, $http) {
     $scope.users = users;
     $scope.sortedCalls = sortedCalls;
     $scope.months = months;
-    $scope.callsLocation = 'all';
+    $scope.numbers = numbers;
+    $scope.callsNumber = 'all';
     var keys = Object.keys($scope.months);
 	$scope.callsDate = keys[keys.length-1];
 
-    $scope.callsGraphLocation = 'all';
+    $scope.callsGraphNumber = 'all';
     var keys = Object.keys($scope.months);
 	$scope.callsGraphDate = keys[keys.length-1];
 
@@ -49,14 +50,14 @@ app.controller("myCtrl", function($scope, $http) {
     	return count;
     };
     $scope.filterCalls = function () {
-    	$http.get('/filter-calls/' + $scope.callsDate + '/' + $scope.callsLocation)
+    	$http.get('/filter-calls/' + $scope.callsDate + '/' + $scope.callsNumber)
 	    .then(function(response) {
 	        $scope.sortedCalls = response.data.sortedCalls;
 	    });
     };
 
     $scope.filterGraph = function () {
-    	$http.get('/filter-graph/' + $scope.callsGraphDate + '/' + $scope.callsGraphLocation)
+    	$http.get('/filter-graph/' + $scope.callsGraphDate + '/' + $scope.callsGraphNumber)
 	    .then(function(response) {
 	        chart.load({
 		        columns: [
@@ -78,10 +79,13 @@ app.controller("myCtrl", function($scope, $http) {
 				graphArray[2]
 			],
 			type: 'bar',
+			groups: [
+	            ['Inbound Answered', 'Inbound Abandoned', 'Outbound']
+	        ],
 		},
 		bar: {
 			width: {
-				ratio: 1 
+				ratio: 0.5 
 			}
 		},
 		axis: {

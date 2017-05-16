@@ -79,17 +79,17 @@ class CallsService implements CallsInterface
      *
      * @return call
      */
-    public function getFiltered($year, $month, $location)
+    public function getFiltered($year, $month, $number)
     {        
         return $this->call
             ->whereYear('started_at', $year)
             ->whereMonth('started_at', $month)
-            ->whereHas('number', function($query) use ($location)
+            ->whereHas('number', function($query) use ($number)
                 {
-                    if ($location == 'all') {
+                    if ($number == 'all') {
 
                     } else {
-                        $query->where('country', $location);
+                        $query->where('id', $number);
                     }
                 }
             )->get();

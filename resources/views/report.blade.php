@@ -1,9 +1,9 @@
 @extends('layouts.layout')
 
 @section('content')
-
 <div class="center" ng-app="myApp" ng-controller="myCtrl">
-	<div style="width: 960px" class="center">
+	<a style="color: #000; text-decoration: none;" href="https://github.com/randomhacksuk/aircall-reporting" target="blank"><h1>Aircall Report</h1></a>
+	<div style="width: 960px">
 		<h2>User data</h2>
 		<table class="table table-bordered table-striped">
 			<thead>
@@ -28,10 +28,9 @@
 	<form class="form-inline">
 		<div class="form-group">
 			<label for="line">Line:</label>
-			<select id="line" class="form-control" ng-model="callsLocation" ng-change="filterCalls()">
+			<select id="line" class="form-control" ng-model="callsNumber" ng-change="filterCalls()">
 				<option value="all">All</option>
-				<option value="GB">UK Sales</option>
-				<option value="USA">USA Sales</option>
+				<option ng-repeat="(key, value) in numbers" value="@{{ key }}">@{{ value }}</option>
 			</select>
 		</div>
 		<div class="form-group">
@@ -55,15 +54,14 @@
 			</tr>
 		</tbody>
 	</table>
-	<div style="width: 960px" class="center">
+	<div style="width: 960px">
 		<h2>Timing Data</h2>
 		<form class="form-inline">
 			<div class="form-group">
 				<label for="line">Line:</label>
-				<select id="line" class="form-control" ng-model="callsGraphLocation" ng-change="filterGraph()">
+				<select id="line" class="form-control" ng-model="callsGraphNumber" ng-change="filterGraph()">
 					<option value="all">All</option>
-					<option value="GB">UK Sales</option>
-					<option value="USA">USA Sales</option>
+					<option ng-repeat="(key, value) in numbers" value="@{{ key }}">@{{ value }}</option>
 				</select>
 			</div>
 			<div class="form-group">
@@ -81,6 +79,7 @@
 	window.users = {!! $users !!};
 	window.sortedCalls = {!! json_encode($sortedCalls) !!};
 	window.months = {!! json_encode($months) !!};
+	window.numbers = {!! json_encode($numbers) !!};
 	window.graphArray = {!! json_encode($graphArray) !!};
 </script>
 

@@ -49,5 +49,5 @@ interface CallsInterface
      *
      * @return call
      */
-    public function getFiltered($year, $month, $location);
+    public function getFiltered($year, $month, $number);
 }

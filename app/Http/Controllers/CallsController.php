@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Contracts\CallsInterface;
 use App\Contracts\UsersInterface;
+use App\Number;
 use App\Call;
 use Carbon\Carbon;
 use Log;
@@ -26,8 +27,14 @@ class CallsController extends Controller
     {
         $now = new Carbon;
         $oldest = Carbon::createFromTimestamp(Call::orderBy('started_at', 'asc')->pluck('started_at')->first());
-        $months = [];
+        $allNumbers = Number::all();
 
+        $numbers = [];
+        foreach ($allNumbers as $key => $number) {
+           $numbers[$number->id] = $number->name . ' - ' . $number->digits;
+        }
+
+        $months = [];
         for ($i = $oldest; $i <= $now; $i->addMonth()) { 
             $months[$i->format('Y-m')] = $i->format('M o');
         }
@@ -42,24 +49,25 @@ class CallsController extends Controller
             'users' => $users,
             'sortedCalls' => $sortedCalls,
             'months' => $months,
+            'numbers' => $numbers,
             'graphArray' => $graphArray
         ];
 
         return view('report', $data);
     }
 
-    public function getFilteredCalls($date, $location)
+    public function getFilteredCalls($date, $number)
     {
         $date = Carbon::createFromFormat('Y-m', $date);
-        $calls = $this->callsRepo->getFiltered($date->year, $date->month, $location);
+        $calls = $this->callsRepo->getFiltered($date->year, $date->month, $number);
         $sortedCalls = $this->sortCalls($calls);
         return response()->json(['sortedCalls' => $sortedCalls]);
     }
 
-    public function getFilteredCallsGraph($date, $location)
+    public function getFilteredCallsGraph($date, $number)
     {
         $date = Carbon::createFromFormat('Y-m', $date);
-        $calls = $this->callsRepo->getFiltered($date->year, $date->month, $location);
+        $calls = $this->callsRepo->getFiltered($date->year, $date->month, $number);
         $graphArray = $this->sortForGraph($calls);
         return response()->json(['graphArray' => $graphArray]);
     }
@@ -75,6 +83,7 @@ class CallsController extends Controller
             $totalMissing = 0;
             $totalVoicemails = 0;
             $totalWaitTime = 0;
+            $avgWaitTime = 0;
             foreach ($calls as $key => $call) {
                 $date = Carbon::createFromTimestamp($call->started_at);
                 if ($date->day == $i) {
@@ -124,11 +133,6 @@ class CallsController extends Controller
                 $voicePercantage = 0;
             }
 
-            if ($totalWaitTime > 3600) {
-                $totalWaitTime = gmdate("H:i:s", $totalWaitTime);
-            } else {
-                $totalWaitTime = gmdate("i:s", $totalWaitTime);
-            }
             if ($totalIncomingTime > 3600) {
                 $totalIncomingTime = gmdate("H:i:s", $totalIncomingTime);
             } else {
@@ -140,13 +144,16 @@ class CallsController extends Controller
                 $totalOutcomingTime = gmdate("i:s", $totalOutcomingTime);
             }
 
+            if ($totalIncoming + $totalOutcoming !== 0) {
+                $avgWaitTime = round( $totalWaitTime / ($totalIncoming + $totalOutcoming) );
+            }
+
             $sortedCalls['Number of Incoming Calls'][$i] = $totalIncoming;
             $sortedCalls['Number of Missed Calls'][$i] = $totalMissing;
             $sortedCalls['Percentage of Missed Calls'][$i] = $missedPercentage . '%';
             $sortedCalls['Number of Voicemails'][$i] = $totalVoicemails;
             $sortedCalls['Voicemails Leaving Percentage '][$i] = $voicePercantage . '%';
-            $sortedCalls['Average Call Wait List'][$i] = $totalWaitTime;
-            // $sortedCalls['Treatment Time'][$i] = 
+            $sortedCalls['Average Call Wait Time (Secs)'][$i] = $avgWaitTime;
             $sortedCalls['Total Incoming Talk Time'][$i] = $totalIncomingTime;
             $sortedCalls['Number Outgoing Calls'][$i] = $totalOutcoming;
             $sortedCalls['Total Outoming Talk Time'][$i] = $totalOutcomingTime;
