@@ -32,7 +32,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('aircall_calls')
-                 ->daily();
+                 ->everyMinute();
+        $schedule->command('aircall_users')
+                 ->everyMinute();
+        $schedule->command('aircall_numbers')
+                 ->everyMinute();
+        $schedule->command('aircall_contacts')
+                 ->everyMinute();
     }
 
     /**
