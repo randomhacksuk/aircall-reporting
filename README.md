@@ -2,16 +2,20 @@
 
 A reporting tool to help analysis your Aircall call data and understand when calls come and what happens to them.  It uses the Aircall API (https://developer.aircall.io/).  The data is retreived the AirCall API and stored in a MySQL database.  You can see the analysis of the calls from the reporting screen.
 
-### Development
 
-Want to contribute? Great!
+### Get Started
+
+You will need to install mysql and PHP.
+
 
 Open your favorite Terminal and run these command from the root of the project.
 ```sh
 $ composer install
 ```
 
-Once database is created, run the following command to generate databse tables(database name can be edited from .env file within root of the project)
+Once database is created, run the following command to generate databse tables.  You will need to set the database name in the .env file within root of the project.
+
+
 ```sh
 $ php artisan migrate
 ```
