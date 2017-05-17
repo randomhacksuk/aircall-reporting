@@ -18,18 +18,34 @@ $ php artisan migrate
 
 To set app id and app key of your aircall account edit second parameters for "air_call_id" and "air_call_key" in config/aircall.php or change it directly from .env file.
 
+The are several scheduled tasks, which will update database if you configure it clear.
+
+The crontab file can be reached by running this command in Terminal
+
+```sh
+$ crontab -e
+```
+
+This line need to be added to crontab file:
+
+
+```sh
+* * * * * php /path/to/your/project/artisan schedule:run >> /dev/null 2>&1
+```
+
+* * * * * is for setting frequency for jobs to be executed. For example if you want jobs to be executed at 2:30 once a day you can use the following:
+
+```sh
+(30 2 * * * /your/command)
+```
+
+```sh
+* * * * * php /path/to/your/project/artisan schedule:run >> /dev/null 2>&1
+```
+
 Visit {domain name/ip address}/get-old-data to store old data from aircall to our database.
 
-After that database will be automatically updated every day according to aircall account users activity.
+After that database will be automatically updated according to aircall account users activity by frequency, which set in crontab file.
 
 
-### Todos
-
- - Write MOAR Tests
- - Add Night Mode
-
-License
-----
-
-MIT
 
