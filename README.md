@@ -5,10 +5,16 @@ A reporting tool to help analysis your Aircall call data and understand when cal
 
 ### Get Started
 
-You will need to install mysql, PHP and composer.
+You will need to install mysql, PHP and composer.  You install everything from terminal.
 
+Clone the project to your server.
 
-Open your favorite Terminal and run these command from the root of the project.
+```sh
+$ git clone https://github.com/randomhacksuk/aircall-reporting.git
+```
+
+Install all the php dependencies for the project.
+
 ```sh
 $ composer install
 ```
