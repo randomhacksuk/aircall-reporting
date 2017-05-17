@@ -68,7 +68,7 @@ class OldAircallContacts extends Command
      */
     protected $phoneNumbersRepo;
 
-    /*
+    /**
      * Create a new command instance.
      *
      * @param ContactsInterface $contactsRepo
