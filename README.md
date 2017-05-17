@@ -6,7 +6,7 @@ A reporting tool to help analysis your Aircall call data and understand when cal
 
 Want to contribute? Great!
 
-Open your favorite Terminal and run these commands from the root of the project.
+Open your favorite Terminal and run these command from the root of the project.
 ```sh
 $ composer install
 ```
@@ -16,7 +16,7 @@ Once database is created, run the following command to generate databse tables(d
 $ php artisan migrate
 ```
 
-To set app id and app key of your aircall account edit second parameters for "air_call_id" and "air_call_key" in config/aircall.php or change it directly from .env file.
+To set app id and app key of your aircall account change it from .env file.
 
 The are several scheduled tasks, which will update database if you configure it clear.
 
@@ -28,16 +28,6 @@ $ crontab -e
 
 This line need to be added to crontab file:
 
-
-```sh
-* * * * * php /path/to/your/project/artisan schedule:run >> /dev/null 2>&1
-```
-
-* * * * * is for setting frequency for jobs to be executed. For example if you want jobs to be executed at 2:30 once a day you can use the following:
-
-```sh
-(30 2 * * * /your/command)
-```
 
 ```sh
 * * * * * php /path/to/your/project/artisan schedule:run >> /dev/null 2>&1
