@@ -5,7 +5,7 @@ A reporting tool to help analysis your Aircall call data and understand when cal
 
 ### Get Started
 
-You will need to install mysql and PHP.
+You will need to install mysql, PHP and composer.
 
 
 Open your favorite Terminal and run these command from the root of the project.
