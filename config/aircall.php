@@ -7,13 +7,13 @@ return [
      *
      * @var integer
      */
-    'air_call_id' => env('AIR_CALL_ID', ''),
+    'air_call_id' => env('Aircall_Id', ''),
 
     /**
      * The instance of CallsInterface.
      *
      * @var object
      */
-    'air_call_key' => env('AIR_CALL_KEY', '')
+    'air_call_key' => env('Aircall_Token', '')
 
 ];
