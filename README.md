@@ -19,12 +19,19 @@ Install all the php dependencies for the project.
 $ composer install
 ```
 
+
+```sh
+$ php artisan key:generate
+```
+
 Once database is created, run the following command to generate databse tables.  You will need to set the database name in the .env file within root of the project.
 
 
 ```sh
 $ php artisan migrate
 ```
+
+
 
 To set app id and app key of your aircall account change it from .env file.
 
