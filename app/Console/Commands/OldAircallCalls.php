@@ -61,8 +61,8 @@ class OldAircallCalls extends Command
     {
         parent::__construct();
         $this->callsRepo = $callsRepo;
-        $appId = config('app.air_call_id');
-        $appKey = config('app.air_call_key');
+        $appId = config('aircall.air_call_id');
+        $appKey = config('aircall.air_call_key');
         $this->client = new AircallClient($appId, $appKey);
     }
 
@@ -148,7 +148,12 @@ class OldAircallCalls extends Command
         $callData['raw_digits'] = $call->raw_digits;
         $callData['archived'] = $call->archived;
 
-        return $this->callsRepo->add($callData);
+        try {
+            return $this->callsRepo->add($callData);
+        } catch(\Illuminate\Database\QueryException $e) {
+            return false;
+        }
+        
     }
 
 }

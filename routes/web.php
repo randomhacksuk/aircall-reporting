@@ -11,13 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('get-old-data', 'AircallController@getOldData');
 
-Route::get('reporting', 'CallsController@getReportingDetails');
 Route::get('filter-reports/{date}/{number}', 'CallsController@getFilteredReports');
 
 Route::get('calls', 'CallsController@getCallsDetails');
+Route::get('/', 'CallsController@getReportingDetails');

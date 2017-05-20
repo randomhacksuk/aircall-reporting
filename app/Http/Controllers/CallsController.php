@@ -8,7 +8,6 @@ use App\Contracts\UsersInterface;
 use App\Number;
 use App\Call;
 use Carbon\Carbon;
-use Log;
 
 class CallsController extends Controller
 {

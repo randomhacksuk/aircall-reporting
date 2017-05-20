@@ -124,10 +124,6 @@ return [
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
-    'air_call_id' => env('AirCallId'),
-
-    'air_call_key' => env('AirCallKey'),
-
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

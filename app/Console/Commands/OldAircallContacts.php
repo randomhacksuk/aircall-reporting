@@ -46,13 +46,29 @@ class OldAircallContacts extends Command
      */
     protected $appKey;
 
+
+    /**
+     * The instance of ContactsInterface.
+     *
+     * @var object
+     */
     protected $contactsRepo;
 
+    /**
+     * The instance of EmailsInterface.
+     *
+     * @var object
+     */
     protected $emailsRepo;
 
+    /**
+     * The instance of PhoneNumbersInterface.
+     *
+     * @var object
+     */
     protected $phoneNumbersRepo;
 
-    /*
+    /**
      * Create a new command instance.
      *
      * @param ContactsInterface $contactsRepo
@@ -67,8 +83,8 @@ class OldAircallContacts extends Command
         $this->contactsRepo = $contactsRepo;
         $this->emailsRepo = $emailsRepo;
         $this->phoneNumbersRepo = $phoneNumbersRepo;
-        $appId = config('app.air_call_id');
-        $appKey = config('app.air_call_key');
+        $appId = config('aircall.air_call_id');
+        $appKey = config('aircall.air_call_key');
         $this->client = new AircallClient($appId, $appKey);
     }
 
@@ -138,7 +154,11 @@ class OldAircallContacts extends Command
 
         $createdContact = DB::transaction(function () use ($contact, $contactData) {
 
-            $createdContact = $this->contactsRepo->add($contactData);
+            try {
+                $createdContact = $this->contactsRepo->add($contactData);
+            } catch(\Illuminate\Database\QueryException $e) {
+                return false;
+            }
 
             if(count($contact->emails) > 0) {
 
