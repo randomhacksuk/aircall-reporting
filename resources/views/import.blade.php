@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div ng-app="myApp" ng-controller="myCtrl">
+<div id="main" style="display: none" ng-app="myApp" ng-controller="myCtrl">
 	<div class="center" style="width: 760px">
 		<h2>Import date</h2>
 		<button class="btn btn-default" style="margin-bottom: 20px" ng-click="startImport()">Import</button>

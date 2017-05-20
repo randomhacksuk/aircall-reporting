@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-<div class="center" ng-app="myApp" ng-controller="myCtrl">
+<div id="main" style="display: none" class="center" ng-app="myApp" ng-controller="myCtrl">
 	<!-- <a style="color: #000; text-decoration: none;" href="https://github.com/randomhacksuk/aircall-reporting" target="blank"><h1>Aircall Report</h1></a> -->
 	<form class="form-inline">
 		<div class="form-group">

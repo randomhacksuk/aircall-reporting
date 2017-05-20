@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-<div ng-app="myApp" ng-controller="myCtrl">
+<div id="main" style="display: none" ng-app="myApp" ng-controller="myCtrl">
 	<div class="center" style="width: 960px">
 		<h2>Calls data</h2>
 		<table class="table table-bordered table-striped">

@@ -61,11 +61,12 @@ class CallsController extends Controller
     {
 
         $date = Carbon::createFromFormat('Y-m', $date);
+        $users = $this->usersRepo->getFiltered($date->year, $date->month, $number);
         $calls = $this->callsRepo->getFiltered($date->year, $date->month, $number);
         $graphArray = $this->sortForGraph($calls);
         $sortedCalls = $this->sortCalls($calls);
 
-        return response()->json(['sortedCalls' => $sortedCalls, 'graphArray' => $graphArray]);
+        return response()->json(['sortedCalls' => $sortedCalls, 'graphArray' => $graphArray, 'users' => $users]);
     }
 
     public function sortCalls($calls)
@@ -164,6 +165,7 @@ class CallsController extends Controller
         for ($i = 1; $i <= 24; $i++) {
             $inboundAnswered = 0;
             $inboundAbandoned = 0;
+            $inboundVoicemails = 0;
             $outbound = 0;
             foreach ($calls as $key => $call) {
                 $date = Carbon::createFromTimestamp($call->started_at);
@@ -179,18 +181,23 @@ class CallsController extends Controller
                     if ($call->direction == 'outbound') {
                         $outbound++;
                     }
+                    if ($call->voicemail !== null) {
+                        $inboundVoicemails++;
+                    }
 
                 }
 
             }
 
             $graphArray[0][0] = 'Inbound Answered';
-            $graphArray[1][0] = 'Inbound Abandoned';
-            $graphArray[2][0] = 'Outbound';
+            $graphArray[1][0] = 'Inbound Abondoned';
+            $graphArray[2][0] = 'Inbound Voicemail';
+            $graphArray[3][0] = 'Outbound';
 
             $graphArray[0][] = $inboundAnswered;
             $graphArray[1][] = $inboundAbandoned;
-            $graphArray[2][] = $outbound;
+            $graphArray[2][] = $inboundVoicemails;
+            $graphArray[3][] = $outbound;
         }
         return $graphArray;
     }

@@ -1,5 +1,6 @@
 var app = angular.module("myApp", []);
 app.controller("myCtrl", function($scope, $http) {
+	$('#main').show();
 	$scope.logs = [];
 	$scope.complete = false;
 	$scope.start = false
@@ -19,7 +20,9 @@ app.controller("myCtrl", function($scope, $http) {
 			$http.get('/get-logs/' + lastId)
 		    .then(function(response) {
 		    	$scope.logs = $scope.logs.concat(response.data.logs);
-		    	lastId = $scope.logs[$scope.logs.length - 1].id;
+		    	if ($scope.logs[$scope.logs.length - 1] != undefined) {
+		    		lastId = $scope.logs[$scope.logs.length - 1].id;
+		    	}
 		    });
 		}, 1000);
 	}

@@ -1,6 +1,6 @@
 var app = angular.module("myApp", ['gridshore.c3js.chart']);
-
 app.controller("myCtrl", function($scope, $http) {
+	$('#main').show();
     $scope.days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
     $scope.users = users;
     $scope.sortedCalls = sortedCalls;
@@ -51,11 +51,13 @@ app.controller("myCtrl", function($scope, $http) {
     	$http.get('/filter-reports/' + $scope.reportDate + '/' + $scope.reportNumber)
 	    .then(function(response) {
 	        $scope.sortedCalls = response.data.sortedCalls;
+	        $scope.users = response.data.users;
 	        chart.load({
 		        columns: [
 		            response.data.graphArray[0],
 		            response.data.graphArray[1],
-		            response.data.graphArray[2]
+		            response.data.graphArray[2],
+		            response.data.graphArray[3]
 		        ]
 		    });
 	    });
@@ -67,11 +69,12 @@ app.controller("myCtrl", function($scope, $http) {
 			columns: [
 				graphArray[0],
 				graphArray[1],
-				graphArray[2]
+				graphArray[2],
+				graphArray[3]
 			],
 			type: 'bar',
 			groups: [
-	            ['Inbound Answered', 'Inbound Abandoned', 'Outbound']
+	            ['Inbound Answered', 'Inbound Abondoned', 'Inbound Voicemail', 'Outbound']
 	        ],
 		},
 		bar: {

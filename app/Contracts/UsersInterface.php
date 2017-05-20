@@ -36,4 +36,11 @@ interface UsersInterface
      * @return bool
      */
     public function delete($id);
+
+    /**
+     * Get filtered users
+     *
+     * @return Collection
+     */
+    public function getFiltered($year, $month, $number);
 }

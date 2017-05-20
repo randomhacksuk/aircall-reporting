@@ -61,4 +61,25 @@ class UsersService implements UsersInterface
     {
         return $this->user->where('aircall_id', $id)->delete();
     }
+
+    /**
+     * Get filtered users
+     *
+     * @return Collection
+     */
+    public function getFiltered($year, $month, $number)
+    {
+        return $this->user->with('calls')->with(['calls' => function($query) use ($year, $month, $number)
+        {
+            $query->whereYear('started_at', $year)->whereMonth('started_at', $month)->whereHas('number', function($q) use ($number)
+                {
+                    if ($number == 'all') {
+
+                    } else {
+                        $q->where('id', $number);
+                    }
+                }
+            );
+        }])->get();
+    }
 }
