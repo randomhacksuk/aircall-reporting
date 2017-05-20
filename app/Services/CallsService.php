@@ -26,7 +26,7 @@ class CallsService implements CallsInterface
      */
     public function getAll()
     {
-        return $this->call->get();
+        return $this->call->with(['number', 'user'])->get();
     }
 
     /**

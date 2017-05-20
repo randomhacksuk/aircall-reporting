@@ -50,26 +50,23 @@ class CallsController extends Controller
             'sortedCalls' => $sortedCalls,
             'months' => $months,
             'numbers' => $numbers,
-            'graphArray' => $graphArray
+            'graphArray' => $graphArray,
+            'reportsPage' => 'reportsPage'
         ];
 
         return view('report', $data);
     }
 
-    public function getFilteredCalls($date, $number)
-    {
-        $date = Carbon::createFromFormat('Y-m', $date);
-        $calls = $this->callsRepo->getFiltered($date->year, $date->month, $number);
-        $sortedCalls = $this->sortCalls($calls);
-        return response()->json(['sortedCalls' => $sortedCalls]);
-    }
 
-    public function getFilteredCallsGraph($date, $number)
+    public function getFilteredReports($date, $number)
     {
+
         $date = Carbon::createFromFormat('Y-m', $date);
         $calls = $this->callsRepo->getFiltered($date->year, $date->month, $number);
         $graphArray = $this->sortForGraph($calls);
-        return response()->json(['graphArray' => $graphArray]);
+        $sortedCalls = $this->sortCalls($calls);
+
+        return response()->json(['sortedCalls' => $sortedCalls, 'graphArray' => $graphArray]);
     }
 
     public function sortCalls($calls)
@@ -197,6 +194,16 @@ class CallsController extends Controller
             $graphArray[2][] = $outbound;
         }
         return $graphArray;
+    }
+
+    public function getCallsDetails()
+    {
+        $calls = $this->callsRepo->getAll();
+        $data = [
+            'callsPage' => 'callsPage',
+            'calls' => $calls
+        ];
+        return view('calls', $data);
     }
 }
  

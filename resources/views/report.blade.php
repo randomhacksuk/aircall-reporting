@@ -2,7 +2,22 @@
 
 @section('content')
 <div class="center" ng-app="myApp" ng-controller="myCtrl">
-	<a style="color: #000; text-decoration: none;" href="https://github.com/randomhacksuk/aircall-reporting" target="blank"><h1>Aircall Report</h1></a>
+	<!-- <a style="color: #000; text-decoration: none;" href="https://github.com/randomhacksuk/aircall-reporting" target="blank"><h1>Aircall Report</h1></a> -->
+	<form class="form-inline">
+		<div class="form-group">
+			<label for="line">Line:</label>
+			<select id="line" class="form-control" ng-model="reportNumber" ng-change="filterReports()">
+				<option value="all">All</option>
+				<option ng-repeat="(key, value) in numbers" value="@{{ key }}">@{{ value }}</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="duration">Duration:</label>
+			<select id="duration" class="form-control" ng-model="reportDate" ng-change="filterReports()">
+				<option ng-repeat="(key, value) in months" value="@{{ key }}">@{{ value }}</option>
+			</select>
+		</div>
+	</form>
 	<div style="width: 960px">
 		<h2>User data</h2>
 		<table class="table table-bordered table-striped">
@@ -25,21 +40,6 @@
 		</table>
 	</div>
 	<h2>Call Data</h2>
-	<form class="form-inline">
-		<div class="form-group">
-			<label for="line">Line:</label>
-			<select id="line" class="form-control" ng-model="callsNumber" ng-change="filterCalls()">
-				<option value="all">All</option>
-				<option ng-repeat="(key, value) in numbers" value="@{{ key }}">@{{ value }}</option>
-			</select>
-		</div>
-		<div class="form-group">
-			<label for="duration">Duration:</label>
-			<select id="duration" class="form-control" ng-model="callsDate" ng-change="filterCalls()">
-				<option ng-repeat="(key, value) in months" value="@{{ key }}">@{{ value }}</option>
-			</select>
-		</div>
-	</form>
 	<table class="table table-bordered table-striped" id="callsTable">
 		<thead>
 			<tr>
@@ -56,24 +56,14 @@
 	</table>
 	<div style="width: 960px">
 		<h2>Timing Data</h2>
-		<form class="form-inline">
-			<div class="form-group">
-				<label for="line">Line:</label>
-				<select id="line" class="form-control" ng-model="callsGraphNumber" ng-change="filterGraph()">
-					<option value="all">All</option>
-					<option ng-repeat="(key, value) in numbers" value="@{{ key }}">@{{ value }}</option>
-				</select>
-			</div>
-			<div class="form-group">
-				<label for="duration">Duration:</label>
-				<select id="duration" class="form-control" ng-model="callsGraphDate" ng-change="filterGraph()">
-					<option ng-repeat="(key, value) in months" value="@{{ key }}">@{{ value }}</option>
-				</select>
-			</div>
-		</form>
 		<div id="chart"></div>
 	</div>
 </div>
+
+
+@stop
+
+@section('js')
 
 <script type="text/javascript">
 	window.users = {!! $users !!};
@@ -82,5 +72,6 @@
 	window.numbers = {!! json_encode($numbers) !!};
 	window.graphArray = {!! json_encode($graphArray) !!};
 </script>
+<script type="text/javascript" src="{{ asset('js/reports.js') }}"></script>
 
 @stop

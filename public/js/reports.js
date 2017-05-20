@@ -6,13 +6,10 @@ app.controller("myCtrl", function($scope, $http) {
     $scope.sortedCalls = sortedCalls;
     $scope.months = months;
     $scope.numbers = numbers;
-    $scope.callsNumber = 'all';
-    var keys = Object.keys($scope.months);
-	$scope.callsDate = keys[keys.length-1];
 
-    $scope.callsGraphNumber = 'all';
+    $scope.reportNumber = 'all';
     var keys = Object.keys($scope.months);
-	$scope.callsGraphDate = keys[keys.length-1];
+	$scope.reportDate = keys[keys.length-1];
 
     $scope.totalCalls = function (calls) {
     	var total = 0
@@ -49,16 +46,11 @@ app.controller("myCtrl", function($scope, $http) {
     	});
     	return count;
     };
-    $scope.filterCalls = function () {
-    	$http.get('/filter-calls/' + $scope.callsDate + '/' + $scope.callsNumber)
+
+    $scope.filterReports = function () {
+    	$http.get('/filter-reports/' + $scope.reportDate + '/' + $scope.reportNumber)
 	    .then(function(response) {
 	        $scope.sortedCalls = response.data.sortedCalls;
-	    });
-    };
-
-    $scope.filterGraph = function () {
-    	$http.get('/filter-graph/' + $scope.callsGraphDate + '/' + $scope.callsGraphNumber)
-	    .then(function(response) {
 	        chart.load({
 		        columns: [
 		            response.data.graphArray[0],
@@ -68,7 +60,6 @@ app.controller("myCtrl", function($scope, $http) {
 		    });
 	    });
     };
-
 
     var chart = c3.generate({
 		bindto: '#chart',

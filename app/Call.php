@@ -108,6 +108,11 @@ class Call extends Model
 
     public function number()
     {
-    	return $this->hasOne('App\Number', 'digits', 'number');
+        return $this->hasOne('App\Number', 'digits', 'number');
+    }
+
+    public function user()
+    {
+    	return $this->belongsTo('App\User', 'user_id', 'aircall_user_id');
     }
 }
