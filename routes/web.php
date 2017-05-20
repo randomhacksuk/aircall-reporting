@@ -13,7 +13,8 @@
 
 Route::get('get-old-data', 'AircallController@getOldData');
 
-Route::get('filter-reports/{date}/{number}', 'CallsController@getFilteredReports');
-
-Route::get('calls', 'CallsController@getCallsDetails');
 Route::get('/', 'CallsController@getReportingDetails');
+Route::get('filter-reports/{date}/{number}', 'CallsController@getFilteredReports');
+Route::get('calls', 'CallsController@getCallsDetails');
+Route::get('import', 'AircallController@getImportPage');
+Route::get('get-logs/{page}', 'AircallController@getLogs');

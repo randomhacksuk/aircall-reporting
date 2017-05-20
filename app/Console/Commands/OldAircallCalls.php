@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\lib\Aircall\AircallClient;
 use App\Contracts\CallsInterface;
+use Exeption;
+use App\Log;
 
 class OldAircallCalls extends Command
 {
@@ -77,9 +79,11 @@ class OldAircallCalls extends Command
             'per_page' => 50,
         ];
 
-        //dd(\App\Call::where('id', 1)->first());
-
-        $calls = $this->client->calls->getCallsWithQuery($array);
+        try {
+            $calls = $this->client->calls->getCallsWithQuery($array);
+        } catch(Exception $e) {
+            sleep(60);
+        }
 
         if($calls->meta->total > 0) {
 
@@ -149,11 +153,25 @@ class OldAircallCalls extends Command
         $callData['archived'] = $call->archived;
 
         try {
-            return $this->callsRepo->add($callData);
+            $createdCall = $this->callsRepo->add($callData);
         } catch(\Illuminate\Database\QueryException $e) {
             return false;
         }
+
+        $data = [
+            'aircall_id' => $call->id,
+            'name' => $call->id,
+            'type' => 'call',
+            'success' => true
+        ];
+        if ($createdCall) {
+            Log::create($data);
+        } else {
+            $data['success'] = false;
+            Log::create($data);
+        }
         
+        return $createdCall;
     }
 
 }

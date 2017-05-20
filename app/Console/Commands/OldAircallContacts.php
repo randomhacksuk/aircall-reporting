@@ -7,6 +7,8 @@ use App\Contracts\ContactsInterface;
 use App\Contracts\EmailsInterface;
 use App\Contracts\PhoneNumbersInterface;
 use App\lib\Aircall\AircallClient;
+use Exception;
+use App\Log;
 use DB;
 
 class OldAircallContacts extends Command
@@ -98,7 +100,12 @@ class OldAircallContacts extends Command
         $array = [
             'per_page' => 50,
         ];
-        $contacts = $this->client->contacts->getContactsWithQuery($array);
+        
+        try {
+            $contacts = $this->client->contacts->getContactsWithQuery($array);
+        } catch(Exception $e) {
+            sleep(60);
+        }
 
         if($contacts->meta->total > 0) {
 
@@ -150,39 +157,37 @@ class OldAircallContacts extends Command
         $contactData['company_name'] = $contact->company_name; 
         $contactData['information'] = $contact->information;
 
+        try {
+            $createdContact = $this->contactsRepo->add($contactData);
+        } catch(\Illuminate\Database\QueryException $e) {
+            return false;
+        }
 
-
-        $createdContact = DB::transaction(function () use ($contact, $contactData) {
-
-            try {
-                $createdContact = $this->contactsRepo->add($contactData);
-            } catch(\Illuminate\Database\QueryException $e) {
-                return false;
-            }
-
+        $data = [
+            'aircall_id' => $contact->id,
+            'name' => $contact->first_name . ' ' . $contact->last_name,
+            'type' => 'contact',
+            'success' => true
+        ];
+        if ($createdContact) {
+            Log::create($data);
             if(count($contact->emails) > 0) {
-
                 foreach ($contact->emails as $key => $email) {
-
                     $this->addEmail($email, $createdContact);
-
                 }
-
             }
 
             if(count($contact->phone_numbers) > 0) {
-
                 foreach ($contact->phone_numbers as $key => $phoneNumber) {
-                    
                     $this->addPhoneNumber($phoneNumber, $createdContact);
-
                 }
-
             }
+        } else {
+            $data['success'] = false;
+            Log::create($data);
+        }
 
-            return $createdContact;
-
-        });
+        return $createdContact;
     }
 
     /**

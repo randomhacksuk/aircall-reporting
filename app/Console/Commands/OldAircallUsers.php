@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Contracts\UsersInterface;
 use App\Contracts\UserNumbersInterface;
 use App\lib\Aircall\AircallClient;
+use App\Log;
 use Exception;
 use DB;
 
@@ -89,7 +90,11 @@ class OldAircallUsers extends Command
             'per_page' => 50,
         ];
 
-        $users = $this->client->users->getUsersWithQuery($array);
+        try {
+            $users = $this->client->users->getUsersWithQuery($array);
+        } catch(Exception $e) {
+            sleep(60);
+        }
 
         if($users->meta->total > 0) {
 
@@ -150,16 +155,22 @@ class OldAircallUsers extends Command
         $userData['available'] = $user->available;
         $userData['availability_status'] = $user->availability_status;
 
-        $createdUser = DB::transaction(function () use ($user, $userData) {
-
-            $createdUser = $this->usersRepo->add($userData);
-
+        $createdUser = $this->usersRepo->add($userData);
+        $data = [
+            'aircall_id' => $user->id,
+            'name' => $user->name,
+            'type' => 'user',
+            'success' => true
+        ];
+        if ($createdUser) {
+            Log::create($data);
             $this->getUser($createdUser->aircall_user_id, $createdUser);
+        } else {
+            $data['success'] = false;
+            Log::create($data);
+        }
 
-            return $createdUser;
-
-        });
-
+        return $createdUser;
     }
 
     /**

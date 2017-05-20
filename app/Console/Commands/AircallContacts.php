@@ -7,6 +7,7 @@ use App\Contracts\ContactsInterface;
 use App\Contracts\EmailsInterface;
 use App\Contracts\PhoneNumbersInterface;
 use App\lib\Aircall\AircallClient;
+use Exeption;
 use Carbon\Carbon;
 use DB;
 
@@ -104,7 +105,11 @@ class AircallContacts extends Command
             'per_page' => 50,
         ];
 
-        $contacts = $this->client->contacts->getContactsWithQuery($array);
+        try {
+            $contacts = $this->client->contacts->getContactsWithQuery($array);
+        } catch(Exception $e) {
+            sleep(60);
+        }
 
         if($contacts->meta->total > 0) {
 

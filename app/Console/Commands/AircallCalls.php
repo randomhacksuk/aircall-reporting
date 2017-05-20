@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\lib\Aircall\AircallClient;
 use Carbon\Carbon;
 use App\Contracts\CallsInterface;
+use Exeption;
 
 class AircallCalls extends Command
 {
@@ -82,7 +83,11 @@ class AircallCalls extends Command
             'per_page' => 50,
         ];
 
-        $calls = $this->client->calls->getCallsWithQuery($array);
+        try {
+            $calls = $this->client->calls->getCallsWithQuery($array);
+        } catch(Exception $e) {
+            sleep(60);
+        }
 
         if($calls->meta->total > 0) {
 

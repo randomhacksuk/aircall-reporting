@@ -1,6 +1,6 @@
 var app = angular.module("myApp", ['angularUtils.directives.dirPagination']);
 
-app.controller("myCtrl", function($scope, $http) {
+app.controller("myCtrl", function($scope) {
 	$scope.calls = calls;
 	$scope.formatDate = function (argument) {
 		return moment(argument).format('MMM DD, YYYY');

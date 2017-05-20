@@ -10,7 +10,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="https://github.com/randomhacksuk/aircall-reporting" target="blank">Aircall Report</a>
+				<a class="navbar-brand" href="/">Aircall Report</a>
 			</div>
 			<ul class="nav navbar-nav">
 				@if(isset($reportsPage))
@@ -27,8 +27,19 @@
 				@endif
 					<a href="{{ action('CallsController@getCallsDetails') }}">Call Data</a>
 				</li>
-				<li><a href="#">Import</a></li>
+				@if(isset($importPage))
+					<li class="active">
+				@else
+					<li>
+				@endif
+					<a href="{{ action('AircallController@getImportPage') }}">Import</a>
+				</li>
 			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="https://github.com/randomhacksuk/aircall-reporting" target="blank">Github Repo</a>
+				</li>
+		    </ul>
 		</div>
 	</nav>
 	

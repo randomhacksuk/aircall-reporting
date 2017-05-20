@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Contracts\UsersInterface;
 use Artisan;
-
-use Log;
+use App\Log;
 
 class AircallController extends Controller
 {
@@ -17,6 +16,7 @@ class AircallController extends Controller
     */
 	public function __construct(UsersInterface $usersRepo)
 	{
+        ini_set('max_execution_time', 0);
 		$this->usersRepo = $usersRepo;
 	}
 
@@ -52,6 +52,17 @@ class AircallController extends Controller
             return response()->back("Something went wrong!");
         }
 
-        return redirect()->action('CallsController@getReportingDetails');
+        return response()->json(['result' => 'success']);
+    }
+
+    public function getImportPage()
+    {
+        return view('import', ['importPage' => 'importPage']);
+    }
+
+    public function getLogs($lastId)
+    {
+        $logs = Log::where('id', '>', $lastId)->get();
+        return response()->json(['logs' => $logs]);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Contracts\NumbersInterface;
 use App\Contracts\UserNumbersInterface;
 use App\lib\Aircall\AircallClient;
+use Exeption;
 use Carbon\Carbon;
 use DB;
 
@@ -82,7 +83,11 @@ class AircallNumbers extends Command
             'per_page' => 50,
         ];
 
-        $numbers = $this->client->numbers->getNumbersWithQuery($array);
+        try {
+            $numbers = $this->client->numbers->getNumbersWithQuery($array);
+        } catch(Exception $e) {
+            sleep(60);
+        }
 
         if($numbers->meta->total > 0) {
 

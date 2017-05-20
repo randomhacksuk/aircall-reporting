@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Contracts\UsersInterface;
 use App\Contracts\UserNumbersInterface;
 use App\lib\Aircall\AircallClient;
+use Exeption;
 use Carbon\Carbon;
 use DB;
 
@@ -94,7 +95,12 @@ class AircallUsers extends Command
             'per_page' => 50,
         ];
 
-        $users = $this->client->users->getUsersWithQuery($array);
+
+        try {
+            $users = $this->client->users->getUsersWithQuery($array);
+        } catch(Exception $e) {
+            sleep(60);
+        }
 
         if($users->meta->total > 0) {
 

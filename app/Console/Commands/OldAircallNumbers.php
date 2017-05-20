@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 use App\Contracts\NumbersInterface;
 use App\Contracts\UserNumbersInterface;
 use App\lib\Aircall\AircallClient;
+use Exeption;
+use App\Log;
 use DB;
 
 class OldAircallNumbers extends Command
@@ -77,7 +79,11 @@ class OldAircallNumbers extends Command
             'per_page' => 50,
         ];
 
-        $numbers = $this->client->numbers->getNumbersWithQuery($array);
+        try {
+            $numbers = $this->client->numbers->getNumbersWithQuery($array);
+        } catch(Exception $e) {
+            sleep(60);
+        }
 
         if($numbers->meta->total > 0) {
 
@@ -132,7 +138,26 @@ class OldAircallNumbers extends Command
         $numberData['open'] = $number->open;
         $numberData['availability_status'] = $number->availability_status;
 
-        return $this->numbersRepo->add($numberData);
+        try {
+            $createdNumber = $this->numbersRepo->add($numberData);
+        } catch(\Illuminate\Database\QueryException $e) {
+            return false;
+        }
+
+        $data = [
+            'aircall_id' => $number->id,
+            'name' => $number->name,
+            'type' => 'number',
+            'success' => true
+        ];
+        if ($createdNumber) {
+            Log::create($data);
+        } else {
+            $data['success'] = false;
+            Log::create($data);
+        }
+
+        return $createdNumber;
 
     }
 
