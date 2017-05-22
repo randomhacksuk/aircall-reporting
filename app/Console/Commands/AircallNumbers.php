@@ -86,7 +86,7 @@ class AircallNumbers extends Command
         try {
             $numbers = $this->client->numbers->getNumbersWithQuery($array);
         } catch(Exception $e) {
-            sleep(60);
+            sleep(80);
         }
 
         if($numbers->meta->total > 0) {
@@ -111,7 +111,7 @@ class AircallNumbers extends Command
                     try {
                         $numbers = $this->client->numbers->getNumbersWithQuery($array);
                     } catch(Exception $e) {
-                        sleep(60);
+                        sleep(80);
                     }
 
                     foreach ($numbers->numbers as $key => $number) {

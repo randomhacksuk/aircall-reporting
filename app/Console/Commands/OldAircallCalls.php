@@ -83,7 +83,7 @@ class OldAircallCalls extends Command
         try {
             $calls = $this->client->calls->getCallsWithQuery($array);
         } catch(Exception $e) {
-            sleep(60);
+            sleep(80);
         }
 
         if($calls->meta->total > 0) {
@@ -112,7 +112,7 @@ class OldAircallCalls extends Command
                     try {
                         $calls = $this->client->calls->getCallsWithQuery($array);
                     } catch(Exception $e) {
-                        sleep(60);
+                        sleep(80);
                     }
 
                     foreach ($calls->calls as $key => $call) {

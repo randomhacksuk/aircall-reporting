@@ -108,7 +108,7 @@ class AircallContacts extends Command
         try {
             $contacts = $this->client->contacts->getContactsWithQuery($array);
         } catch(Exception $e) {
-            sleep(60);
+            sleep(80);
         }
 
         if($contacts->meta->total > 0) {
@@ -133,7 +133,7 @@ class AircallContacts extends Command
                     try {
                         $contacts = $this->client->contacts->getContactsWithQuery($array);
                     } catch(Exception $e) {
-                        sleep(60);
+                        sleep(80);
                     }
 
                     foreach ($contacts->contacts as $key => $contact) {

@@ -99,7 +99,7 @@ class AircallUsers extends Command
         try {
             $users = $this->client->users->getUsersWithQuery($array);
         } catch(Exception $e) {
-            sleep(60);
+            sleep(80);
         }
 
         if($users->meta->total > 0) {
@@ -129,7 +129,7 @@ class AircallUsers extends Command
                     try {
                         $users = $this->client->users->getUsersWithQuery($array);
                     } catch(Exception $e) {
-                        sleep(60);
+                        sleep(80);
                     }
 
                     foreach ($users->users as $key => $user) {

@@ -94,7 +94,7 @@ class OldAircallUsers extends Command
         try {
             $users = $this->client->users->getUsersWithQuery($array);
         } catch(Exception $e) {
-            sleep(60);
+            sleep(80);
         }
 
         if($users->meta->total > 0) {
@@ -125,7 +125,7 @@ class OldAircallUsers extends Command
                     try {
                         $users = $this->client->users->getUsersWithQuery($array);
                     } catch(Exception $e) {
-                        sleep(60);
+                        sleep(80);
                     }
 
                     foreach ($users->users as $key => $user) {
@@ -174,7 +174,7 @@ class OldAircallUsers extends Command
             try {
                 $this->getUser($createdUser->aircall_user_id, $createdUser);
             } catch(Exception $e) {
-                sleep(60);
+                sleep(80);
             }
 
         } else {
