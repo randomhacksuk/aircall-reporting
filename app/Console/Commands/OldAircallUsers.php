@@ -73,6 +73,7 @@ class OldAircallUsers extends Command
     {
         parent::__construct();
         ini_set('max_execution_time', 0);
+        set_time_limit(0);
         $this->usersRepo = $usersRepo;
         $this->userNumbersRepo = $userNumbersRepo;
         $appId = config('aircall.air_call_id');

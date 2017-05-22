@@ -63,6 +63,7 @@ class OldAircallCalls extends Command
     {
         parent::__construct();
         ini_set('max_execution_time', 0);
+        set_time_limit(0);
         $this->callsRepo = $callsRepo;
         $appId = config('aircall.air_call_id');
         $appKey = config('aircall.air_call_key');
