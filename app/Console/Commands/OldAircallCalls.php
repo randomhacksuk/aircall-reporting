@@ -107,8 +107,12 @@ class OldAircallCalls extends Command
                         'per_page' => 50,
                         'page' => $i
                     ];
-                    
-                    $calls = $this->client->calls->getCallsWithQuery($array);
+
+                    try {
+                        $calls = $this->client->calls->getCallsWithQuery($array);
+                    } catch(Exception $e) {
+                        sleep(60);
+                    }
 
                     foreach ($calls->calls as $key => $call) {
                         if($call->status == 'done') {

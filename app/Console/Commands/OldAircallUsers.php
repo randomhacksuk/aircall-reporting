@@ -121,6 +121,12 @@ class OldAircallUsers extends Command
 
                     $users = $this->client->users->getUsersWithQuery($array);
 
+                    try {
+                        $users = $this->client->users->getUsersWithQuery($array);
+                    } catch(Exception $e) {
+                        sleep(60);
+                    }
+
                     foreach ($users->users as $key => $user) {
 
                         try {
@@ -163,7 +169,13 @@ class OldAircallUsers extends Command
         ];
         if ($createdUser) {
             Log::create($data);
-            $this->getUser($createdUser->aircall_user_id, $createdUser);
+            
+            try {
+                $this->getUser($createdUser->aircall_user_id, $createdUser);
+            } catch(Exception $e) {
+                sleep(60);
+            }
+
         } else {
             $data['success'] = false;
             Log::create($data);

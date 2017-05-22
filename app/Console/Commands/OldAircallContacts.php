@@ -126,7 +126,11 @@ class OldAircallContacts extends Command
                         'page' => $i
                     ];
 
-                    $contacts = $this->client->contacts->getContactsWithQuery($array);
+                    try {
+                        $contacts = $this->client->contacts->getContactsWithQuery($array);
+                    } catch(Exception $e) {
+                        sleep(60);
+                    }
 
                     foreach ($contacts->contacts as $key => $contact) {
 
