@@ -62,6 +62,7 @@ class OldAircallNumbers extends Command
     public function __construct(NumbersInterface $numbersRepo)
     {
         parent::__construct();
+        ini_set('max_execution_time', 0);
         $this->numbersRepo = $numbersRepo;
         $appId = config('aircall.air_call_id');
         $appKey = config('aircall.air_call_key');

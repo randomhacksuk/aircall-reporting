@@ -82,6 +82,7 @@ class OldAircallContacts extends Command
     public function __construct(ContactsInterface $contactsRepo, EmailsInterface $emailsRepo, PhoneNumbersInterface $phoneNumbersRepo)
     {
         parent::__construct();
+        ini_set('max_execution_time', 0);
         $this->contactsRepo = $contactsRepo;
         $this->emailsRepo = $emailsRepo;
         $this->phoneNumbersRepo = $phoneNumbersRepo;
