@@ -106,7 +106,6 @@ class OldAircallUsers extends Command
                     continue;
                 }
 
-
             }
 
             if($users->meta->count < $users->meta->total) {

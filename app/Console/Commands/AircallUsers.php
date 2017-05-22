@@ -126,7 +126,11 @@ class AircallUsers extends Command
                         'page' => $i
                     ];
 
-                    $users = $this->client->users->getUsersWithQuery($array);
+                    try {
+                        $users = $this->client->users->getUsersWithQuery($array);
+                    } catch(Exception $e) {
+                        sleep(60);
+                    }
 
                     foreach ($users->users as $key => $user) {
 

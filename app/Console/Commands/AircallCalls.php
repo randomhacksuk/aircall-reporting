@@ -112,7 +112,11 @@ class AircallCalls extends Command
                         'page' => $i
                     ];
 
-                    $calls = $this->client->calls->getCallsWithQuery($array);
+                    try {
+                        $calls = $this->client->calls->getCallsWithQuery($array);
+                    } catch(Exception $e) {
+                        sleep(60);
+                    }
 
                     foreach ($calls->calls as $key => $call) {
 

@@ -108,7 +108,11 @@ class AircallNumbers extends Command
                         'page' => $i
                     ];
 
-                    $numbers = $this->client->numbers->getNumbersWithQuery($array);
+                    try {
+                        $numbers = $this->client->numbers->getNumbersWithQuery($array);
+                    } catch(Exception $e) {
+                        sleep(60);
+                    }
 
                     foreach ($numbers->numbers as $key => $number) {
 

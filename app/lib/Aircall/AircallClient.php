@@ -148,6 +148,7 @@ class AircallClient
             'query' => $datas,
             'headers' => [
                 'Accept' => 'application/json',
+                'X-AircallApi-Limit' => 100,
             ],
         ]);
 
