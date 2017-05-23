@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use App\Contracts\NumbersInterface;
 use App\Contracts\UserNumbersInterface;
 use App\lib\Aircall\AircallClient;
-use Exeption;
+use Exception;
 use App\Log;
 use DB;
 

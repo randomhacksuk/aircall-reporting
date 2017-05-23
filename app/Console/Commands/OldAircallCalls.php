@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\lib\Aircall\AircallClient;
 use App\Contracts\CallsInterface;
-use Exeption;
+use Exception;
 use App\Log;
 
 class OldAircallCalls extends Command
@@ -62,7 +62,7 @@ class OldAircallCalls extends Command
     public function __construct(CallsInterface $callsRepo)
     {
         parent::__construct();
-        ini_set('max_execution_time', 0);
+        ini_set('max_execution_time',0);
         set_time_limit(0);
         $this->callsRepo = $callsRepo;
         $appId = config('aircall.air_call_id');
@@ -84,7 +84,7 @@ class OldAircallCalls extends Command
         try {
             $calls = $this->client->calls->getCallsWithQuery($array);
         } catch(Exception $e) {
-            sleep(80);
+            sleep(60);
         }
 
         if($calls->meta->total > 0) {
@@ -113,7 +113,7 @@ class OldAircallCalls extends Command
                     try {
                         $calls = $this->client->calls->getCallsWithQuery($array);
                     } catch(Exception $e) {
-                        sleep(80);
+                        sleep(60);
                     }
 
                     foreach ($calls->calls as $key => $call) {
